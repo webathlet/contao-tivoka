@@ -36,6 +36,8 @@ use BugBuster\Tivoka\Client\Notification;
 use BugBuster\Tivoka\Client\Request;
 use BugBuster\Tivoka\Tivoka;
 
+use BugBuster\Tivoka\Runtime;
+
 /**
  * JSON-RPC connection
  * @package Tivoka
@@ -114,14 +116,23 @@ abstract class AbstractConnection implements ConnectionInterface {
     public static function factory($target)
     {
         // TCP conneciton is defined as ['host' => $host, 'port' => $port] definition
-        if (is_array($target) && isset($target['host'], $target['port'])) {
+        if (is_array($target) && isset($target['host'], $target['port'])) 
+        {
             return new Tcp($target['host'], $target['port']);
-        } elseif (is_string($target) && preg_match('/^wss?:\/\//', $target)) {
+        } 
+        elseif (is_string($target) && preg_match('/^wss?:\/\//', $target)) 
+        {
             // WebSocket URL starts with ws:// or wss://
             return new WebSocket($target);
-        } else {
+        } 
+        elseif ( Runtime::isAllowUrlFopenEnabled() ) 
+        {
             // HTTP end-point should be defined just as string
             return new Http($target);
         }
+        elseif ( Runtime::isCurlEnabled() )
+        {
+            return new CurlHttp($target);
+        } 
     }
 }

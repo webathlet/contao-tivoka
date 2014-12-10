@@ -25,6 +25,9 @@ ClassLoader::addNamespaces(array
  */
 ClassLoader::addClasses(array
 (
+	// Classes
+	'BugBuster\Tivoka\Runtime'                               => 'system/modules/tivoka/classes/Runtime.php',
+
 	// Lib
 	'BugBuster\Tivoka\Client\BatchRequest'                   => 'system/modules/tivoka/lib/Tivoka/Client/BatchRequest.php',
 	'BugBuster\Tivoka\Client\Connection\AbstractConnection'  => 'system/modules/tivoka/lib/Tivoka/Client/Connection/AbstractConnection.php',
