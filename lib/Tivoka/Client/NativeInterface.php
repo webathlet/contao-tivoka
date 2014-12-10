@@ -29,9 +29,9 @@
  * @copyright (c) 2011-2012, Marcel Klehr
  */
 
-namespace Tivoka\Client;
-use Tivoka\Exception;
-use Tivoka\Client\Connection\ConnectionInterface;
+namespace BugBuster\Tivoka\Client;
+use BugBuster\Tivoka\Exception;
+use BugBuster\Tivoka\Client\Connection\ConnectionInterface;
 
 /**
  * JSON-RPC native remote interface

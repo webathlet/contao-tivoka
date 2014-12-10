@@ -28,9 +28,9 @@
  * @copyright (c) 2011-2012, Marcel Klehr
  */
 
-namespace Tivoka\Server;
-use Tivoka\Exception;
-use Tivoka\Tivoka;
+namespace BugBuster\Tivoka\Server;
+use BugBuster\Tivoka\Exception;
+use BugBuster\Tivoka\Tivoka;
 
 /**
  * Processes the  JSON-RPC input
@@ -196,8 +196,8 @@ class Server
         //invoke...
         try {
             return $result( $this->host->{$request['method']}($params) );
-        }catch(\Tivoka\Exception\ProcedureException $e) {
-            if($e instanceof \Tivoka\Exception\InvalidParamsException)
+        }catch(Exception\ProcedureException $e) {
+            if($e instanceof Exception\InvalidParamsException)
                 return $error(-32602, ($e->getMessage() != "") ? $e->getMessage() : 'Invalid parameters');
             return $error(-32603, ($e->getMessage() != "") ? $e->getMessage() : 'Internal error invoking method');
         }

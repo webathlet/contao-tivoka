@@ -29,7 +29,7 @@
  * @copyright (c) 2011-2012, Marcel Klehr
  */
 
-namespace Tivoka\Client\Connection;
+namespace BugBuster\Tivoka\Client\Connection;
 
 use Tivoka\Client\Request;
 

@@ -28,7 +28,7 @@
  * @copyright (c) 2011-2012, Marcel Klehr
  */
 
-namespace Tivoka;
+namespace BugBuster\Tivoka;
 
 /**
  * The public interface on the server-side 

@@ -29,10 +29,10 @@
  * @copyright (c) 2011-2012, Marcel Klehr
  */
 
-namespace Tivoka\Client;
-use Tivoka\Exception;
-use Tivoka\Tivoka;
-use Tivoka\Client\Connection\AbstractConnection;
+namespace BugBuster\Tivoka\Client;
+use BugBuster\Tivoka\Exception;
+use BugBuster\Tivoka\Tivoka;
+use BugBuster\Tivoka\Client\Connection\AbstractConnection;
 
 /**
  * A JSON-RPC request

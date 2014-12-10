@@ -28,8 +28,8 @@
  * @copyright (c) 2011-2012, Marcel Klehr
  */
 
-namespace Tivoka\Server;
-use Tivoka\Exception;
+namespace BugBuster\Tivoka\Server;
+use BugBuster\Tivoka\Exception;
 
 /**
  * MethodWrapper for implementing anonymous objects on the fly

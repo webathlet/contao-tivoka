@@ -28,7 +28,7 @@
  * @copyright (c) 2011-2012, Marcel Klehr
  */
 
-namespace Tivoka\Client;
+namespace BugBuster\Tivoka\Client;
 
 /**
  * JSON-RPC notification

@@ -29,9 +29,9 @@
  */
 
 
-namespace Tivoka\Client;
-use Tivoka\Exception;
-use Tivoka\Tivoka;
+namespace BugBuster\Tivoka\Client;
+use BugBuster\Tivoka\Exception;
+use BugBuster\Tivoka\Tivoka;
 
 /**
  * A batch request

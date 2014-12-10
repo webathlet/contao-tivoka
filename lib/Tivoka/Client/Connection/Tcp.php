@@ -29,10 +29,10 @@
  * @copyright (c) 2011-2012, Marcel Klehr
  */
 
-namespace Tivoka\Client\Connection;
-use Tivoka\Client\BatchRequest;
-use Tivoka\Exception;
-use Tivoka\Client\Request;
+namespace BugBuster\Tivoka\Client\Connection;
+use BugBuster\Tivoka\Client\BatchRequest;
+use BugBuster\Tivoka\Exception;
+use BugBuster\Tivoka\Client\Request;
 
 /**
  * Raw TCP connection

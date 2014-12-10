@@ -29,10 +29,10 @@
  * @copyright (c) 2011-2012, Marcel Klehr
  */
 
-namespace Tivoka\Client\Connection;
-use Tivoka\Client\BatchRequest;
-use Tivoka\Exception;
-use Tivoka\Client\Request;
+namespace BugBuster\Tivoka\Client\Connection;
+use BugBuster\Tivoka\Client\BatchRequest;
+use BugBuster\Tivoka\Exception;
+use BugBuster\Tivoka\Client\Request;
 
 /**
  * HTTP connection
@@ -106,7 +106,7 @@ class Http extends AbstractConnection {
             throw new Exception\ConnectionException('Connection to "'.$this->target.'" failed');
         }
         $request->setResponse($response);
-        $request->setHeaders($http_response_header);
+        //$request->setHeaders($http_response_header);
         return $request;
     }
 }

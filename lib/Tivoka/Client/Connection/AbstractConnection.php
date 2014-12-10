@@ -29,12 +29,12 @@
  * @copyright (c) 2011-2012, Marcel Klehr
  */
 
-namespace Tivoka\Client\Connection;
-use Tivoka\Exception;
-use Tivoka\Client\NativeInterface;
-use Tivoka\Client\Notification;
-use Tivoka\Client\Request;
-use Tivoka\Tivoka;
+namespace BugBuster\Tivoka\Client\Connection;
+use BugBuster\Tivoka\Exception;
+use BugBuster\Tivoka\Client\NativeInterface;
+use BugBuster\Tivoka\Client\Notification;
+use BugBuster\Tivoka\Client\Request;
+use BugBuster\Tivoka\Tivoka;
 
 /**
  * JSON-RPC connection
