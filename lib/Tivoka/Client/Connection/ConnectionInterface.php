@@ -31,7 +31,7 @@
 
 namespace BugBuster\Tivoka\Client\Connection;
 
-use Tivoka\Client\Request;
+use BugBuster\Tivoka\Client\Request;
 
 /**
  * Connection interface

@@ -17,6 +17,7 @@ include $dir.'/Exception/InvalidParamsException.php';
 include $dir.'/Client/Connection/ConnectionInterface.php';
 include $dir.'/Client/Connection/AbstractConnection.php';
 include $dir.'/Client/Connection/Http.php';
+include $dir.'/Client/Connection/CurlHttp.php';
 include $dir.'/Client/Connection/Tcp.php';
 include $dir.'/Client/Connection/WebSocket.php';
 include $dir.'/Client/Request.php';
