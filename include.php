@@ -1,5 +1,7 @@
 <?php
 
+//only for simple travis tests
+
 $dir = dirname(__FILE__).'/lib/Tivoka';
 
 include $dir.'/Tivoka.php';

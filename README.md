@@ -1,5 +1,5 @@
 # Tivoka [![Build Status](https://travis-ci.org/BugBuster1701/tivoka.svg)](https://travis-ci.org/BugBuster1701/tivoka)
-[JSON-RPC](http://jsonrpc.org/) client and server for PHP 5.3+
+[JSON-RPC](http://jsonrpc.org/) client and server for PHP 5.3+, special version for Contao CMS
 
 * Easily switch between the [v1.0](http://json-rpc.org/wiki/specification) and [v2.0](http://jsonrpc.org/specification) specs
 * HTTP, TCP and Websocket transports available
