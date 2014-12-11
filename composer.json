@@ -17,9 +17,9 @@
 		}
     ],
 	"support":{
-		"issues":"https://github.com/BugBuster1701/tivoka/issues",
+		"issues":"https://github.com/BugBuster1701/contao-tivoka/issues",
 		"irc":"irc://irc.freenode.org/contao.dev",
-		"source":"https://github.com/BugBuster1701/tivoka"
+		"source":"https://github.com/BugBuster1701/contao-tivoka"
 	},
     "require": {
 		"php": ">=5.3",
