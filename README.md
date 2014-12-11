@@ -1,4 +1,4 @@
-# Contao Tivoka [![Build Status](https://travis-ci.org/BugBuster1701/tivoka.svg)](https://travis-ci.org/BugBuster1701/tivoka)
+# Contao Tivoka [![Build Status](https://travis-ci.org/BugBuster1701/contao-tivoka.svg)](https://travis-ci.org/BugBuster1701/contao-tivoka)
 [JSON-RPC](http://jsonrpc.org/) client and server for PHP 5.3+
 
 Based on [tivoka](https://github.com/marcelklehr/tivoka) in version 3.4.0
