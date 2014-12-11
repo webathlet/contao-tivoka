@@ -1,7 +1,7 @@
 {
-    "name": "BugBuster/tivoka",
+    "name": "bugbuster/tivoka",
     "type":"contao-module",
-    "description": "The universal JSON-RPC client/server library. JSON-RPC done right! Contao version"
+    "description": "The universal JSON-RPC client/server library. JSON-RPC done right! Contao version",
     "keywords": ["json", "rpc", "json-rpc", "api", "xml-rpc", "contao"],
     "homepage":"http://www.contao.glen-langer.de",
     "license": "MIT",
