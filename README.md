@@ -1,8 +1,9 @@
-# Tivoka [![Build Status](https://travis-ci.org/BugBuster1701/tivoka.svg)](https://travis-ci.org/BugBuster1701/tivoka)
-[JSON-RPC](http://jsonrpc.org/) client and server for PHP 5.3+, special version for Contao CMS
+# Contao Tivoka [![Build Status](https://travis-ci.org/BugBuster1701/contao-tivoka.svg)](https://travis-ci.org/BugBuster1701/contao-tivoka)
+[JSON-RPC](http://jsonrpc.org/) client and server for PHP 5.3+
 
 Based on [tivoka](https://github.com/marcelklehr/tivoka) in version 3.4.0
 
+* JSON-RPC client/server library for PHP (supports v1.0 and v2.0 specs)
 * Easily switch between the [v1.0](http://json-rpc.org/wiki/specification) and [v2.0](http://jsonrpc.org/specification) specs
 * HTTP, TCP and Websocket transports available
 * New: CurlHTTP available, used if HTTP not allowed (allow_url_fopen)
@@ -68,6 +69,7 @@ $ php composer.phar install
 Now, `include 'vendor/autoload.php'`
 
 ## License ##
-Copyright 2011-2012 by Marcel Klehr
-MIT License.
+Copyright 2011-2012 by Marcel Klehr, MIT License.
+
+Copyright (c) 2014 Glen Langer (Contao Version), MIT License.
 
