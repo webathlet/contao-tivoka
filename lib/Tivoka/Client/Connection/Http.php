@@ -94,9 +94,11 @@ class Http extends AbstractConnection {
                     'header' => "Content-Type: application/json\r\n".
                                 "Connection: Close\r\n",
                     'method' => 'POST',
-                    'timeout' => $this->timeout
+                    'timeout' => $this->timeout,
+                    'user_agent' => 'Tivoka/3.4.0 (easyUpdate3)'
                 )
-        );
+        );// Agent scheint trotzdem  bei json nicht in der access.log aufzutauchen
+        
         foreach($this->headers as $label => $value) {
           $context['http']['header'] .= $label . ": " . $value . "\r\n";
         }
@@ -106,7 +108,7 @@ class Http extends AbstractConnection {
             throw new Exception\ConnectionException('Connection to "'.$this->target.'" failed');
         }
         $request->setResponse($response);
-        //$request->setHeaders($http_response_header);
+        $request->setHeaders($http_response_header);
         return $request;
     }
 }
