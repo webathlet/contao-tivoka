@@ -73,42 +73,6 @@ class CurlHttp extends AbstractConnection {
         $this->headers[$label] = $value;
         return $this;
     }
-
-    /**
-     * Sends a JSON-RPC request
-     * @param Request $request A Tivoka request
-     * @return Request if sent as a batch request the BatchRequest object will be returned
-     *//*
-    public function send(Request $request) {
-        if(func_num_args() > 1 ) $request = func_get_args();
-        if(is_array($request)) {
-            $request = new BatchRequest($request);
-        }
-        
-        if(!($request instanceof Request)) throw new Exception\Exception('Invalid data type to be sent to server');
-        
-        // preparing connection...
-        $context = array(
-                'http' => array(
-                    'content' => $request->getRequest($this->spec),
-                    'header' => "Content-Type: application/json\r\n".
-                                "Connection: Close\r\n",
-                    'method' => 'POST',
-                    'timeout' => $this->timeout
-                )
-        );
-        foreach($this->headers as $label => $value) {
-          $context['http']['header'] .= $label . ": " . $value . "\r\n";
-        }
-        //sending...
-        $response = @file_get_contents($this->target, false, stream_context_create($context));
-        if($response === FALSE) {
-            throw new Exception\ConnectionException('Connection to "'.$this->target.'" failed');
-        }
-        $request->setResponse($response);
-        //$request->setHeaders($http_response_header);
-        return $request;
-    }*/
     
     /**
      * Sends a JSON-RPC request
@@ -139,8 +103,9 @@ class CurlHttp extends AbstractConnection {
                 CURLOPT_MAXREDIRS => 10,
                 CURLOPT_HTTPHEADER => array('Content-type: application/json'),
                 CURLOPT_POST => TRUE,
-                CURLOPT_POSTFIELDS => $request->getRequest($this->spec)
-        );
+                CURLOPT_POSTFIELDS => $request->getRequest($this->spec),
+                CURLOPT_USERAGENT => 'Tivoka/3.4.0 (easyUpdate3)'
+        );// Agent scheint trotzdem bei json nicht in der access.log aufzutauchen
         
         curl_setopt_array($curl, $options);
         
