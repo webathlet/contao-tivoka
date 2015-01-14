@@ -4,6 +4,8 @@
 
 $dir = dirname(__FILE__).'/lib/Tivoka';
 
+include dirname(__FILE__).'/classes/Runtime.php';
+
 include $dir.'/Tivoka.php';
 include $dir.'/Client.php';
 include $dir.'/Server.php';
