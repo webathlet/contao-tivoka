@@ -95,7 +95,7 @@ class Http extends AbstractConnection {
                                 "Connection: Close\r\n",
                     'method' => 'POST',
                     'timeout' => $this->timeout,
-                    'user_agent' => 'Tivoka/3.4.0 (easyUpdate3)'
+                    'user_agent' => 'Tivoka/3.4.0 (easyUpdate3 fopen)'
                 )
         );// Agent scheint trotzdem  bei json nicht in der access.log aufzutauchen
         

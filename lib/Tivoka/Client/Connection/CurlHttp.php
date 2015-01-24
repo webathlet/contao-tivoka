@@ -104,19 +104,29 @@ class CurlHttp extends AbstractConnection {
                 CURLOPT_HTTPHEADER => array('Content-type: application/json'),
                 CURLOPT_POST => TRUE,
                 CURLOPT_POSTFIELDS => $request->getRequest($this->spec),
-                CURLOPT_USERAGENT => 'Tivoka/3.4.0 (easyUpdate3)'
+                CURLOPT_USERAGENT => 'Tivoka/3.4.0 (easyUpdate3 c_url)' //curl = Bot!
         );// Agent scheint trotzdem bei json nicht in der access.log aufzutauchen
         
         curl_setopt_array($curl, $options);
         
         // Execute the request and decode to an array
         $raw_response = curl_exec($curl);
+        if($raw_response === FALSE) 
+        {
+            throw new Exception\ConnectionException('Connection to "'.$this->target.'" failed');
+        }
         //$this->response = json_decode($this->raw_response, TRUE);
         $request->setResponse($raw_response);
-        
+
+        /*
         // If the status is not 200, something is wrong
         $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        //TODO Auswerten, ConnectException werfen
+        if ($status == 200) 
+        {
+        	//TODO Auswerten, ConnectException werfen
+        }
+        
+         */
         
         curl_close($curl);
 
