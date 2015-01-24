@@ -99,6 +99,11 @@ class Http extends AbstractConnection {
                 )
         );// Agent scheint trotzdem  bei json nicht in der access.log aufzutauchen
         
+        if (isset($this->options['ssl_verify_peer'])) 
+        {
+            $context['ssl']['verify_peer'] = $this->options['ssl_verify_peer'];
+        }
+        
         foreach($this->headers as $label => $value) {
           $context['http']['header'] .= $label . ": " . $value . "\r\n";
         }

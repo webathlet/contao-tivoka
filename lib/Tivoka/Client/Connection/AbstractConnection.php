@@ -56,6 +56,12 @@ abstract class AbstractConnection implements ConnectionInterface {
      */
     protected $timeout = self::DEFAULT_TIMEOUT;
 
+    /**
+     * Connections options.
+     * @var array
+     */
+    protected $options = array();
+    
     public $spec = Tivoka::SPEC_2_0;
 
     /**
@@ -67,6 +73,17 @@ abstract class AbstractConnection implements ConnectionInterface {
         return $this;
     }
 
+    /**
+     * Changes connection options.
+     * @param array $options
+     * @return Self reference.
+     */
+    public function setOptions($options) 
+    {
+        $this->options = $options;
+        return $this;
+    }
+    
     /**
      * Changes timeout.
      * @param int $timeout
