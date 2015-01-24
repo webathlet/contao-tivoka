@@ -109,6 +109,11 @@ class CurlHttp extends AbstractConnection {
         
         curl_setopt_array($curl, $options);
         
+        if (isset($this->options['ssl_verify_peer']))
+        {
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $this->options['ssl_verify_peer']);
+        }
+        
         // Execute the request and decode to an array
         $raw_response = curl_exec($curl);
         if($raw_response === FALSE) 
