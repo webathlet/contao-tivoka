@@ -24,9 +24,8 @@
  * THE SOFTWARE.
  *
  * @package  Tivoka
- * @author Marcel Klehr <mklehr@gmx.net>
- * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
- * @copyright (c) 2011-2012, Marcel Klehr
+ * @author Glen Langer
+ * @copyright (c) 2015, Glen Langer
  */
 
 namespace BugBuster\Tivoka\Client\Connection;
@@ -81,6 +80,8 @@ class CurlHttp extends AbstractConnection {
      */
     public function send(Request $request) 
     {
+        $max_redirects = 10;
+        
         if ( func_num_args() > 1 ) 
         {
             $request = func_get_args();
@@ -97,25 +98,79 @@ class CurlHttp extends AbstractConnection {
     
         // Build the cURL session
         $curl = curl_init("{$this->target}");
-        $options = array(
-                CURLOPT_RETURNTRANSFER => TRUE,
-                CURLOPT_FOLLOWLOCATION => TRUE,
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_HTTPHEADER => array('Content-type: application/json'),
-                CURLOPT_POST => TRUE,
-                CURLOPT_POSTFIELDS => $request->getRequest($this->spec),
-                CURLOPT_USERAGENT => 'Tivoka/3.4.0 (easyUpdate3 c_url)' //curl = Bot!
-        );// Agent scheint trotzdem bei json nicht in der access.log aufzutauchen
-        
-        curl_setopt_array($curl, $options);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
+        curl_setopt($curl, CURLOPT_POST      , true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $request->getRequest($this->spec));
+        curl_setopt($curl, CURLOPT_USERAGENT , 'Tivoka/3.4.0 (easyUpdate3 c_url)'); //curl = Bot!
         
         if (isset($this->options['ssl_verify_peer']))
         {
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $this->options['ssl_verify_peer']);
         }
         
-        // Execute the request and decode to an array
-        $raw_response = curl_exec($curl);
+        //Fixed #3, the Horror Workaround for CURLOPT_FOLLOWLOCATION bug 
+        //          with open_basedir or safe_mode restriction enabled.
+        if (ini_get('open_basedir') === '' && ini_get('safe_mode' === 'Off')) 
+        {
+            curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+            curl_setopt($curl, CURLOPT_MAXREDIRS     , $max_redirects);
+            $raw_response = curl_exec($curl);
+        }
+        else 
+        {
+            curl_setopt($curl, CURLOPT_FOLLOWLOCATION, false);
+            $mr = $max_redirects;
+            if ($mr > 0)
+            {
+                $newurl = curl_getinfo($curl, CURLINFO_EFFECTIVE_URL);
+                	
+                $rcurl = curl_copy_handle($curl);
+                curl_setopt($rcurl, CURLOPT_HEADER, true);
+                curl_setopt($rcurl, CURLOPT_NOBODY, true);
+                curl_setopt($rcurl, CURLOPT_FORBID_REUSE, false);
+                curl_setopt($rcurl, CURLOPT_RETURNTRANSFER, true);
+                do 
+                {
+                    curl_setopt($rcurl, CURLOPT_URL, $newurl);
+                    $header = curl_exec($rcurl);
+                    if (curl_errno($rcurl)) 
+                    {
+                        $code = 0;
+                    } 
+                    else 
+                    {
+                        $code = curl_getinfo($rcurl, CURLINFO_HTTP_CODE);
+                        if ($code == 301 || $code == 302 || $code == 307) 
+                        {
+                            preg_match('/Location:(.*?)\n/i', $header, $matches);
+                            $newurl = trim(array_pop($matches));
+                        } 
+                        else 
+                        {
+                            $code = 0;
+                        }
+                    }
+                } while ($code && --$mr);
+                curl_close($rcurl);
+                if ($mr > 0) 
+                {
+                    curl_setopt($curl, CURLOPT_URL, $newurl);
+                }
+                
+            }// $mr > 0
+            
+            if($mr == 0 && $max_redirects > 0) 
+            {
+                $raw_response = false;
+            } 
+            else 
+            {
+                // Execute the request and decode to an array
+                $raw_response = curl_exec($curl);
+            }
+        }
+
         if($raw_response === FALSE) 
         {
             throw new Exception\ConnectionException('Connection to "'.$this->target.'" failed');
