@@ -35,6 +35,7 @@ ClassLoader::addClasses(array
 	'BugBuster\Tivoka\Client\Connection\Http'                => 'system/modules/tivoka/lib/Tivoka/Client/Connection/Http.php',
 	'BugBuster\Tivoka\Client\Connection\Tcp'                 => 'system/modules/tivoka/lib/Tivoka/Client/Connection/Tcp.php',
 	'BugBuster\Tivoka\Client\Connection\WebSocket'           => 'system/modules/tivoka/lib/Tivoka/Client/Connection/WebSocket.php',
+	'BugBuster\Tivoka\Client\Connection\CurlHttp'            => 'system/modules/tivoka/lib/Tivoka/Client/Connection/CurlHttp.php',
 	'BugBuster\Tivoka\Client\NativeInterface'                => 'system/modules/tivoka/lib/Tivoka/Client/NativeInterface.php',
 	'BugBuster\Tivoka\Client\Notification'                   => 'system/modules/tivoka/lib/Tivoka/Client/Notification.php',
 	'BugBuster\Tivoka\Client\Request'                        => 'system/modules/tivoka/lib/Tivoka/Client/Request.php',
