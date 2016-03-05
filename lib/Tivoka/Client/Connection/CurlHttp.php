@@ -96,10 +96,28 @@ class CurlHttp extends AbstractConnection {
             throw new Exception\Exception('Invalid data type to be sent to server');
         }
     
+        $headers = array(
+            'Content-Type: application/json',
+            'Connection: Close'
+        );
+        foreach($this->headers as $label => $value) {
+            $headers[] = $label . ": " . $value;
+        }
+        
+        $response_headers = array();
+        $headerFunction = function($ch, $header) use (&$response_headers) {
+            $header2 = rtrim($header, "\r\n");
+            if ($header2 != '') {
+                $response_headers[] = $header2;
+            }
+            return strlen($header); // Use original header length!
+        };
+        
         // Build the cURL session
         $curl = curl_init("{$this->target}");
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
+        curl_setopt($curl, CURLOPT_HTTPHEADER    , $headers);
+        curl_setopt($curl, CURLOPT_HEADERFUNCTION, $headerFunction);
         curl_setopt($curl, CURLOPT_POST      , true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $request->getRequest($this->spec));
         curl_setopt($curl, CURLOPT_USERAGENT , 'Tivoka/3.4.0 (easyUpdate3 c_url)'); //curl = Bot!
@@ -109,9 +127,15 @@ class CurlHttp extends AbstractConnection {
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $this->options['ssl_verify_peer']);
         }
         
+        if (($met = ini_get('max_execution_time')) > 0) 
+        {
+            curl_setopt($curl, CURLOPT_TIMEOUT, round($met * 0.9));
+        }
+        
+        
         //Fixed #3, the Horror Workaround for CURLOPT_FOLLOWLOCATION bug 
         //          with open_basedir or safe_mode restriction enabled.
-        if (ini_get('open_basedir') === '' && ini_get('safe_mode' === 'Off')) 
+        if (ini_get('open_basedir') === '' && ini_get('safe_mode') === 'Off') 
         {
             curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
             curl_setopt($curl, CURLOPT_MAXREDIRS     , $max_redirects);
@@ -177,6 +201,7 @@ class CurlHttp extends AbstractConnection {
         }
         //$this->response = json_decode($this->raw_response, TRUE);
         $request->setResponse($raw_response);
+        $request->setHeaders($response_headers);
 
         /*
         // If the status is not 200, something is wrong

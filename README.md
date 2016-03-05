@@ -8,13 +8,15 @@ Based on [tivoka](https://github.com/marcelklehr/tivoka) in version 3.4.0
 * HTTP, TCP and Websocket transports available
 * New: CurlHTTP available, used if HTTP not allowed (allow_url_fopen)
 
+
 ## Examples ##
-These are just some quick examples. Check out the docs in [`/doc/`](https://github.com/BugBuster1701/contao-tivoka/tree/contao-develop/doc).
+
+These are just some quick examples. Check out the docs in [`/doc/`](https://github.com/BugBuster1701/contao-tivoka/tree/master/doc).
 
 Do a request through HTTP...
 ```php
 <?php
-$connection = Tivoka\Client::connect('http://example.com/api')
+$connection = BugBuster\Tivoka\Client::connect('http://example.com/api')
 $request = $connection->sendRequest('substract', array(51, 9));
 print $request->result;// 42
 ?>
@@ -23,7 +25,7 @@ print $request->result;// 42
 ...or plain TCP
 ```php
 <?php
-$connection = Tivoka\Client::connect(array('host' => 'example.com', 'port' => 1234))
+$connection = BugBuster\Tivoka\Client::connect(array('host' => 'example.com', 'port' => 1234))
 $request = $connection->sendRequest('substract', array(51, 9));
 print $request->result;// 42
 ?>
@@ -32,7 +34,7 @@ print $request->result;// 42
 ...or WebSocket
 ```php
 <?php
-$connection = Tivoka\Client::connect('ws://example.com/api')
+$connection = BugBuster\Tivoka\Client::connect('ws://example.com/api')
 $request = $connection->sendRequest('substract', array(51, 9));
 print $request->result;// 42
 ?>
@@ -47,13 +49,14 @@ $methods = array(
         return $num1 - $num2;
     }
 );
-Tivoka\Server::provide($methods)->dispatch();
+BugBuster\Tivoka\Server::provide($methods)->dispatch();
 ?>
 ```
 
 ## Installation
 
-### Install composer package (in preperation)
+### Install composer package
+
 1. Set up `composer.json` in your project directory:
 ```
 {
@@ -71,5 +74,4 @@ Now, `include 'vendor/autoload.php'`
 ## License ##
 Copyright 2011-2012 by Marcel Klehr, MIT License.
 
-Copyright (c) 2014 Glen Langer (Contao Version), MIT License.
-
+Copyright (c) 2014-2016 Glen Langer (Contao Version), MIT License.

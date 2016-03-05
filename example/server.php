@@ -12,5 +12,5 @@ $methods = array(
 	}
 );
 
-Tivoka\Server::provide($methods)->dispatch();
+BugBuster\Tivoka\Server::provide($methods)->dispatch();
 ?>

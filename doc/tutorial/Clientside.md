@@ -1,6 +1,10 @@
 # Clientside
 
+Tutorial adapted for Contao version.
+
+
 ## Setting up a connection
+
 You want to send a JSON-RPC request, right?  
 So, the first question we need to answer to is: Where are we going to send it to?
 
@@ -16,26 +20,32 @@ Now, we simply connect to this URL, using the following method:
 
 ```php
 <?php
-$connection = Tivoka\Client::connect($target);
+$connection = BugBuster\Tivoka\Client::connect($target);
 ?>
 ```
 
+
 ### WebSocket Connections
+
 If the URL happens to be a WebSocket URL (starting with ws or wss), a (persistant) WebSocket connection is made:
 ```php
 $target = 'ws://example.com/api/json-rpc';
 ```
 Note: This requires the dependencies from composer.json to be installed.
 
+
 ### TCP Connections
+
 In order to connect to a pure TCP JSON-RPC server, use this:
 ```php
 <?php
-$connection = Tivoka\Client:connect(Array('server'=>$server, 'port'=>$port));
+$connection = BugBuster\Tivoka\Client:connect(Array('server'=>$server, 'port'=>$port));
 ?>
 ```
 
+
 ### Connection modifiers
+
 To set a specific spec version, call `->useSpec()`:
 ```php
 <?php
@@ -58,15 +68,16 @@ $connection->setHeader('User-Agent', 'Tivoka/3.x');
 ?>
 ```
 
+
 ## Sending a request
 
 Now, we have a connection, we also need a request to send. Let's assume, the server on the other end of the connection implements a method called `distance`, which calculates the distance between two cities.
 
 ```php
 <?php
-$request = Tivoka\Client::request('distance', array('London', 'Sydney'));
+$request = BugBuster\Tivoka\Client::request('distance', array('London', 'Sydney'));
 // or
-$request = new Tivoka\Client\Request('distance', array('London', 'Sydney'));
+$request = new BugBuster\Tivoka\Client\Request('distance', array('London', 'Sydney'));
 ?>
 ```
 
@@ -78,7 +89,9 @@ $connection->send($request);
 ?>
 ```
 
+
 ## Receiving the response
+
 We will find the result of our request in `$request->result`. And if there was an error, we will find the error code in `$request->error`, the corresponding error message in `$request->errorMessage` and additional error data in `$request->errorData`. We can find out about errors by calling `$request->isError()`.
 
 If you've sent the request using a HTTP connection, you can also access `$request->responseHeaders` (an associative array: `header => value`) and `$request->responseHeadersRaw` (a simple array listing all header lines).
@@ -95,7 +108,7 @@ else {
 
 This code snippet will display, an error message with additional error data, in case of a server error...
 ```
-Error -32601: Method not found. Provided methods are: 
+Error -32601: Method not found. Provided methods are:
 array(3) {
   [0]=>
   string(1) "distance"
@@ -112,6 +125,7 @@ array(3) {
 16983.04km
 ```
 
+
 ## Sending a notification
 
 This time, we only want to let the server know, where we are. We don't need a response, so we simply use a notification.
@@ -119,16 +133,16 @@ This time, we only want to let the server know, where we are. We don't need a re
 Again, we have to set up the connection at first:
 ```php
 <?php
-$connection = Tivoka\Client::connect($target);
+$connection = BugBuster\Tivoka\Client::connect($target);
 ?>
 ```
 
 Then we create the notification.
 ```php
 <?php
-$request = Tovka\Client::notification('location', array('19L 463742 8249133'));
+$request = BugBuster\Tovka\Client::notification('location', array('19L 463742 8249133'));
 // or
-$request = new Tovka\Client\Notification('location', array('19L 463742 8249133'));
+$request = new BugBuster\Tovka\Client\Notification('location', array('19L 463742 8249133'));
 ?>
 ```
 
@@ -142,11 +156,13 @@ $connection->send($request);
 
 Now the server knows, that we are no longer in London, but swimming in Lake Titicaca in South America (these are UTM coordiantes).
 
+
 ## Short cuts
+
 The above can be simplified using the short cut method `sendRequest()`, which implicitly creates a request object for us.
 ```php
 <?php
-$request = Tivoka\Client::connect($target)->sendRequest('distance', array('London', 'Sydney'));
+$request = BugBuster\Tivoka\Client::connect($target)->sendRequest('distance', array('London', 'Sydney'));
 print $request->result; // This prints: 16983.04km
 ?>
 ```
@@ -154,11 +170,12 @@ print $request->result; // This prints: 16983.04km
 This also works for notifications:
 ```php
 <?php
-Tivoka\Client::connect($target)->sendNotification('location', array('19L 463742 8249133'));
+BugBuster\Tivoka\Client::connect($target)->sendNotification('location', array('19L 463742 8249133'));
 ?>
 ```
 
 ## Sending batch requests
+
 If you have multiple requests to send, you could of course `send()` them all one by one...
 
 ```php
@@ -180,18 +197,20 @@ $connection->send($request1, $request2, $request3);
 In some cases you will find, that you have an array of requests, passed by some other part of your code, that you want to send. Here you go:
 ```php
 <?php
-$batch = new Tivoka\Client\BatchRequest(array($request1, $request2, $request3));
+$batch = new BugBuster\Tivoka\Client\BatchRequest(array($request1, $request2, $request3));
 $connection->send($batch);
 ?>
 ```
 
+
 ## Native remote interface
+
 An even simpler solution to invoke remote methods is the native remote interface.
 
 This lets you call remote methods, as if they were implemented directly in PHP.
 ```php
 <?php
-$client = Tivoka\Client::connect($server)->getNativeInterface();
+$client = BugBuster\Tivoka\Client::connect($server)->getNativeInterface();
 
 $client->distance('London', 'Sydney'); // returns '16983.04km'
 ?>
