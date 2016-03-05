@@ -32,6 +32,9 @@
 		"contao-legacy/tivoka":"self.version"
 	},
 	"extra":{
+		"branch-alias": {
+            "dev-develop": "1.2.x-dev"
+        },
 		"contao":{
 			"sources":{
 				"":"system/modules/tivoka"
