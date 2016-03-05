@@ -1,12 +1,12 @@
 <pre>
 <?php
-include('../include.php');
+include('../include.php'); //only for example! This Contao extension uses the autoloader.
 
-$request = Tivoka\Client::request('demo.substract', array(43,1));
-$greeting = Tivoka\Client::request('demo.sayHello');
+$request = BugBuster\Tivoka\Client::request('demo.substract', array(43,1));
+$greeting = BugBuster\Tivoka\Client::request('demo.sayHello');
 
-$target = 'http://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME']).'/server.php';
-Tivoka\Client::connect($target)->send($request, $greeting);
+$target = 'http://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].dirname($_SERVER['SCRIPT_NAME']).'/server.php';
+BugBuster\Tivoka\Client::connect($target)->send($request, $greeting);
 
 
 /*
