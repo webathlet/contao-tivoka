@@ -33,7 +33,7 @@
 	},
 	"extra":{
 		"branch-alias": {
-            "dev-develop": "1.2.x-dev"
+            "dev-contao-dev": "1.2.x-dev"
         },
 		"contao":{
 			"sources":{
