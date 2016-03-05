@@ -109,6 +109,12 @@ class CurlHttp extends AbstractConnection {
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $this->options['ssl_verify_peer']);
         }
         
+        if (($met = ini_get('max_execution_time')) > 0) 
+        {
+            curl_setopt($curl, CURLOPT_TIMEOUT, round($met * 0.9));
+        }
+        
+        
         //Fixed #3, the Horror Workaround for CURLOPT_FOLLOWLOCATION bug 
         //          with open_basedir or safe_mode restriction enabled.
         if (ini_get('open_basedir') === '' && ini_get('safe_mode' === 'Off')) 
