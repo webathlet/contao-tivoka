@@ -141,15 +141,15 @@ abstract class AbstractConnection implements ConnectionInterface {
         {
             // WebSocket URL starts with ws:// or wss://
             return new WebSocket($target);
+        }
+        elseif ( Runtime::isCurlEnabled() )
+        {
+            return new CurlHttp($target);
         } 
         elseif ( Runtime::isAllowUrlFopenEnabled() ) 
         {
             // HTTP end-point should be defined just as string
             return new Http($target);
         }
-        elseif ( Runtime::isCurlEnabled() )
-        {
-            return new CurlHttp($target);
-        } 
     }
 }
